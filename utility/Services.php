@@ -14,7 +14,7 @@ class Services
 {
 
     function sendEmailToSupervisor($email, $message){
-        $subject = "Confirmation of Candidate Seminar Form ( abigailomolola1@gmail.com )";
+        $subject = "Confirmation of Candidate Seminar Form ( csepostgraduateseminar@gmail.com )";
         $this->sendEmails($email, $subject, $message);
     }
 
@@ -26,7 +26,7 @@ class Services
 
 
     function sendEmailToAdmin( $message) {
-        $email = "csepostgraduate@gmail.com";
+        $email = "csepostgraduateseminar@gmail.com";
         $subject = "Notification of form submission";
         $this->sendEmails($email, $subject, $message);
     }
@@ -46,8 +46,8 @@ class Services
         $mail->SMTPSecure = "ssl";
         $mail->Port = 465;
 
-        $mail->From = 'abby@computerscience.oau';
-        $mail->FromName = "Abigail";
+        $mail->From = 'scepostgraduateseminar@gmail.com';
+        $mail->FromName = "Dr Segun Aina";
 
         $mail->addAddress($to);
         $mail->isHTML(true);

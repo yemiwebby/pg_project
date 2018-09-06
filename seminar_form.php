@@ -160,7 +160,7 @@ if (isset($_POST['submit_form'])) {
 
             $_SESSION['active'] = 0;  // 0 untill supervisor approve the serminar form
 
-            $link = "http://".$_SERVER['SERVER_NAME']."/PG_Project/supervisor.php?email=$student_email&hash=$hash";
+            $link = "http://".$_SERVER['SERVER_NAME']."/PG_Project_Update/supervisor.php?email=$student_email&hash=$hash";
 
             $message_student = "<p>Hello  <b>$first_name</b></p><p>Thank you for filling the form!<br> 
             A confirmation link has been sent to <b>$supervisor_name</b>. <br> Do ensure to check your 
