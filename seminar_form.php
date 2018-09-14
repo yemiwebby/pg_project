@@ -58,11 +58,11 @@ if (isset($_POST['submit_form'])) {
     $first_name     = $_POST['first_name'];
     $middle_name     = $_POST['middle_name'];
     $last_name     = $_POST['last_name'];
-    @$registration_number   = $_POST['reg_number'];
-    @$regno   = $_POST['regno'];
+    $registration_number   = $_POST['reg_number'];
+    $regno   = $_POST['regno'];
     $loa   = $_POST['leave_absence'];
     $project_title  = $_POST['project_title'];
-    $seminar_type    = $_POST['seminar_type'];
+    $seminar_type    = isset($_POST['seminar_type']) ? $_POST['seminar_type'] : '';
     $dos     = $_POST['degree_study'];
     $phone_no     = $_POST['phone_no'];
     $seminar_month    = $_POST['seminar_month'];
@@ -83,10 +83,6 @@ if (isset($_POST['submit_form'])) {
 
     if(empty($project_title)) {
         echo "Project is required";
-    }
-
-    if(empty($seminar_type)) {
-        echo "Seminar type is required";
     }
 
     if(empty($dos)){
@@ -172,10 +168,10 @@ if (isset($_POST['submit_form'])) {
        Kindly click the link below to approve it. <br><br>$link;
      </p>";
 
-            $message_supervisor = "<p>Hello, <b>Dr Segun Aina</b>, <br> This is to notify you
-     that <b>$first_name $last_name</b> with the registration number of <b>$regno</b> just submitted the seminar form on the topic: <br>$project_title</br><br><br>
-       and superviusor's name is $supervisor_name.
-     </p>";
+             $message = "<p>Hello, <b>Dr Segun Aina</b>, <br> This is to notify you
+      that <b>$first_name $last_name</b> with the registration number of <b>$regno</b> just submitted the seminar form on the topic: <br>$project_title</br><br><br>
+        and supervisor's name is $supervisor_name.
+      </p>";
 
             // Send emails
 
@@ -200,8 +196,8 @@ if (isset($_POST['submit_form'])) {
         <div><h3><?php echo @$student_id?></h3></div>
         <div class="form">
             <p>SEMINAR FORM<span class="fa fa-2x fa-pencil"></span></div></p>
-        <form class="" method="POST" enctype="multipart/form-data" action="">
-            <input type="hidden" name="regno" value="<?php echo @$registration_number; ?>" />
+        <form class="" method="POST" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <input type="text" name="regno" value="<?php echo $registration_number; ?>" />
             <div class="form-group">
                 <label>First Name:</label>
                 <input type="text" class="form-control" name="first_name" required placeholder="FirstName">
@@ -219,7 +215,7 @@ if (isset($_POST['submit_form'])) {
 
             <div class="form-group">
                 <label>Reg Number:</label>
-                <input type="text" disabled class="form-control" name="reg_number" value="<?php echo "$registration_number" ?>" autocomplete="off" required placeholder="Regnumber">
+                <input type="text" class="form-control" name="reg_number" value="<?php echo "$registration_number" ?>" autocomplete="off" placeholder="Regnumber">
             </div>
 
             <div class="form-group">
