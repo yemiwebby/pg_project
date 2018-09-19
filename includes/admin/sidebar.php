@@ -15,27 +15,26 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul id="adminSidebarMenu" class="sidebar-menu" data-widget="tree">
             <li class="">
-                <a href="#">
+                <a href="admin-home.php">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
 
-
             <li class="">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                </a>
-            </li>
-
-
-            <li class="">
-                <a href="#">
+                <a href="prioritize.php">
                     <i class="fa fa-dashboard"></i> <span> Priority List </span>
                 </a>
             </li>
 
+
             <li class="">
-                <a href="#">
+                <a href="candidates.php">
+                    <i class="fa fa-dashboard"></i> <span> Manage Candidates </span>
+                </a>
+            </li>
+
+            <li class="">
+                <a href="configuration.php">
                     <i class="fa fa-dashboard"></i> <span>Configuration</span>
                 </a>
             </li>

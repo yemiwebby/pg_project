@@ -42,20 +42,21 @@ $form_un_approved_count = mysqli_num_rows($forms_un_approved);
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
-        <link rel="stylesheet" href="images/admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo '/images/admin/bower_components/bootstrap/dist/css/bootstrap.min.css'; ?>">
+<!--        <link rel="stylesheet" href="images/admin/bower_components/bootstrap/dist/css/bootstrap.min.css">-->
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="images/admin/bower_components/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?php echo '/images/admin/bower_components/font-awesome/css/font-awesome.min.css'; ?>">
         <!-- Ionicons -->
         <!-- Theme style -->
-        <link rel="stylesheet" href="images/admin/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="<?php echo '/images/admin/css/AdminLTE.min.css'; ?>">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="images/admin/css/skins/skin-blue.css">
+        <link rel="stylesheet" href="<?php echo '/images/admin/css/skins/skin-blue.css'; ?>">
         <!-- Morris chart -->
         <!-- jvectormap -->
         <!-- Date Picker -->
-        <link rel="stylesheet" href="images/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-        <link rel="stylesheet" href="images/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo '/images/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'; ?>">
+        <link rel="stylesheet" href="<?php echo '/images/admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css'; ?>">
 
 
         <!-- Daterange picker -->
@@ -72,8 +73,8 @@ $form_un_approved_count = mysqli_num_rows($forms_un_approved);
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
         <!-- Styles -->
-        <link href="images/admin/css/admin.css" rel="stylesheet">
-        <link href="images/admin/css/dashboard.css" rel="stylesheet">
+        <link href="<?php echo '/images/admin/css/admin.css'; ?>" rel="stylesheet">
+        <link href="<?php echo '/images/admin/css/dashboard.css'; ?>" rel="stylesheet">
     </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div id="app">

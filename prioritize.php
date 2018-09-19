@@ -1,12 +1,5 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: webby
- * Date: 17/09/2018
- * Time: 5:48 AM
- */
-
-?>
+<?php include "$_SERVER[DOCUMENT_ROOT]/includes/layout/admin-header.php";?>
+<main>
 
 <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -27,7 +20,7 @@
 
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">All Employees</h3>
+                    <h3 class="box-title">Prioritize List </h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -35,14 +28,8 @@
 
                         <div class="col-md-offset-8 col-md-4 col-sm-7 col-xs-7 m-b-30">
                             <div class="m-b-30">
-                                <a href="#">
-                                    <button class="btn btn-primary pull-right">
-                                        <i class="glyphicon glyphicon-plus-sign"></i> Bulk Upload Employee </button>
-                                </a>
-
-                                <a href="#">
-                                    <button class="btn btn-primary pull-right">
-                                        <i class="glyphicon glyphicon-plus-sign"></i> Create Employee </button>
+                                <a href="candidates.php">
+                                    <button class="btn btn-primary pull-right"> Manage Candidates </button>
                                 </a>
                             </div>
                         </div>
@@ -87,3 +74,7 @@
             </div>
         </section>
     </div>
+
+</main>
+
+<?php include "$_SERVER[DOCUMENT_ROOT]/includes/layout/admin-footer.php";?>

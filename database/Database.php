@@ -46,4 +46,10 @@ class Database
         $un_approved = $this->link->query("SELECT * FROM form WHERE approved is NULL or approved = 0");
         return $un_approved;
     }
+
+
+//    public function showAllCandidate()
+//    {
+//        $candidates = $this->link->query("SELECT * FROM")
+//    }
 }
