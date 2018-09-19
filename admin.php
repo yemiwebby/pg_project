@@ -5,3 +5,5 @@
  * Date: 6/12/2018
  * Time: 10:03 PM
  */
+
+include './includes/layout/admin-home.php';
