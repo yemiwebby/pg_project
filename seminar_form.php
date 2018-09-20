@@ -197,7 +197,7 @@ if (isset($_POST['submit_form'])) {
         <div class="form">
             <p>SEMINAR FORM<span class="fa fa-2x fa-pencil"></span></div></p>
         <form class="" method="POST" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-            <input type="text" name="regno" value="<?php echo $registration_number; ?>" />
+            <input type="hidden" name="regno" value="<?php echo $registration_number; ?>" />
             <div class="form-group">
                 <label>First Name:</label>
                 <input type="text" class="form-control" name="first_name" required placeholder="FirstName">

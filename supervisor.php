@@ -5,6 +5,24 @@
 
 require ('connect.php');
 
+if (isset($_GET['hash'])) {
+    $form_hash = $_GET['hash'];
+    $sql = $mysqli->query("SELECT * FROM form WHERE hash='$form_hash'");
+
+    $form_id = '';
+    $num_rows = mysqli_num_rows($sql);
+    if ($sql->num_rows > 0) {
+        $form = $sql->fetch_assoc();
+        $form_id = $form['id'];
+//       echo "Form found";
+    } else {
+        $_SESSION['form_not_found'] = "Form not valid";
+        header("location:index.php");
+    }
+}
+
+$edit_form_link = "http://".$_SERVER['SERVER_NAME']."/PG_Project_Update/edit-form.php?id=$form_id";
+
 if (isset($_POST['submit'])) {
 
 
@@ -156,7 +174,14 @@ require ('connect.php');
 <!--            <input type="radio" class="" name="seminar_type" value="No">NO-->
 <!--        </div>-->
 
-        <div class="form-group"><button type="submit" class="btn btn-success" name="submit">Submit</button></div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" name="submit">Submit</button>
+            <a href="<?php echo $edit_form_link ?>">
+            <button type="button" class="btn btn-success">
+                Edit Form
+            </button>
+            </a>
+        </div>
     </form>
 </div>
 

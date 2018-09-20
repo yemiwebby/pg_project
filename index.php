@@ -7,6 +7,12 @@ include('header.php');
 <div class="content-wrapper">
     <p id="demo"></p>
 
+    <?php
+     if (isset($_SESSION['form_not_found'])) {
+         echo $_SESSION['form_not_found'];
+     }
+    ?>
+
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron text-center">
         <div class="title">

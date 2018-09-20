@@ -13,26 +13,26 @@ use PHPMailer\PHPMailer\PHPMailer;
 class Services
 {
 
-    function sendEmailToSupervisor($email, $message){
+    public function sendEmailToSupervisor($email, $message){
         $subject = "Confirmation of Candidate Seminar Form ( csepostgraduateseminar@gmail.com )";
         $this->sendEmails($email, $subject, $message);
     }
 
 
-    function sendEmailToStudent($email, $message) {
+    public function sendEmailToStudent($email, $message) {
         $subject = "Seminar Form Submitted";
         $this->sendEmails($email, $subject, $message);
     }
 
 
-    function sendEmailToAdmin( $message) {
+    public function sendEmailToAdmin( $message) {
         $email = "csepostgraduateseminar@gmail.com";
         $subject = "Notification of form submission";
         $this->sendEmails($email, $subject, $message);
     }
 
 
-    function sendEmails($email, $subject, $message) {
+    public function sendEmails($email, $subject, $message) {
 
         $to = $email;
 
@@ -41,12 +41,12 @@ class Services
         $mail->isSMTP();
         $mail->Host = "smtp.mailgun.org";
         $mail->SMTPAuth = true;
-        $mail->Username = "postmaster@taxit.com.ng";
-        $mail->Password = "15334956962b181550819c611adcc7e0";
+        $mail->Username = "postmaster@mg.realcodestuffs.com";
+        $mail->Password = "ab7ffcaa9519149074d4303b2c09f638-0e6e8cad-0f2a7714";
         $mail->SMTPSecure = "ssl";
         $mail->Port = 465;
 
-        $mail->From = 'scepostgraduateseminar@gmail.com';
+        $mail->From = 'info@realcodestuffs.com';
         $mail->FromName = "Dr Segun Aina";
 
         $mail->addAddress($to);
@@ -60,6 +60,8 @@ class Services
         {
             echo "Mail Error";
 //            echo "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+//            echo "Sent successfully";
         }
     }
 }
