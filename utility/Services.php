@@ -41,8 +41,8 @@ class Services
         $mail->isSMTP();
         $mail->Host = "smtp.mailgun.org";
         $mail->SMTPAuth = true;
-        $mail->Username = "postmaster@mg.realcodestuffs.com";
-        $mail->Password = "ab7ffcaa9519149074d4303b2c09f638-0e6e8cad-0f2a7714";
+        $mail->Username = "MAIL_USERNAME";
+        $mail->Password = "MAIL_PASSWORD";
         $mail->SMTPSecure = "ssl";
         $mail->Port = 465;
 
