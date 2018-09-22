@@ -180,6 +180,16 @@ if (isset($_POST['submit_form'])) {
             $service->sendEmailToSupervisor($supervisor_email, $message_supervisor);
             $service->sendEmailToAdmin($message);
 
+            // calculate and save semester
+            $semester = $service->finalSemesterUsingLeaveOfAbsence($regno, $loa);
+
+            // Add to priority list
+            if ($semester > 4) {
+                //
+            }
+            $database = new Database();
+            $database->updateStudentSemester($semester, $regno);
+
             echo  $message_student;
         }
 

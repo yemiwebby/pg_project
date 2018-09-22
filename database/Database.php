@@ -57,7 +57,21 @@ class Database
     public function getCurrentSemester()
     {
         $admin_current_semester = $this->link->query("SELECT * FROM configuration ORDER BY ID DESC LIMIT 1");
-        return $admin_current_semester;
+
+        $semester = '';
+        $num_rows = mysqli_num_rows($admin_current_semester);
+        if ($admin_current_semester->num_rows > 0) {
+            $sup = $admin_current_semester->fetch_assoc();
+            $semester = $sup['semester'];
+        }
+        return $semester;
+    }
+
+    public function updateStudentSemester($semester, $reg_number)
+    {
+        $student_semester = $this->link->query("UPDATE users SET no_of_semester ='$semester' WHERE reg_number ='$reg_number'");
+//
+        return $student_semester;
     }
 
 

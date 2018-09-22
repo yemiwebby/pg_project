@@ -7,6 +7,7 @@
  */
 
 require 'vendor/autoload.php';
+include('./database/Database.php');
 use PHPMailer\PHPMailer\PHPMailer;
 
 
@@ -71,10 +72,17 @@ class Services
 
     public function finalSemesterUsingLeaveOfAbsence($student_mat_no, $leave_of_absence)
     {
-        $calculated_semester = $this->calculateSemester($student_mat_no);
-        $final_semester = floatval($calculated_semester) - floatval($leave_of_absence);
+        if ($leave_of_absence && $leave_of_absence != 'none') {
+            $calculated_semester = $this->calculateSemester($student_mat_no);
+            if ($leave_of_absence >= $calculated_semester) {
+               return $calculated_semester;
+            }
+            $final_semester = floatval($calculated_semester) - floatval($leave_of_absence);
+            return $final_semester;
+        }
 
-        return $final_semester;
+        $calculated_semester = $this->calculateSemester($student_mat_no);
+        return $calculated_semester;
     }
 
     function calculateSemester($student_mat_no) {
@@ -82,18 +90,18 @@ class Services
 //            Rain is the second semester denoted with R
         $database = new Database();
         $semester = $database->getCurrentSemester();
-        $admin_semester = $this->extractSemester($semester['semester']);
+        $admin_semester = $this->extractSemester($semester);
         $student_semester = $this->extractSemester($student_mat_no);
         $year = $this->calculateYear($this->extractSession($student_mat_no));
         $new_semester = '';
 
         if ($admin_semester == 'R' && $student_semester == 'R') {
-            $new_semester = $year * 2;
+            $new_semester = floatval($year) * 2;
         }
         elseif ($admin_semester == 'H' && $student_semester == 'H') {
-            $new_semester = ($year * 2) - 1;
+            $new_semester = (floatval($year) * 2) - 1;
         } else {
-            $new_semester = ($year * 2) - 1;
+            $new_semester = (floatval($year) * 2) - 1;
         }
 
         return $new_semester;
@@ -113,7 +121,7 @@ class Services
     function calculateYear($student_session) {
         $database = new Database();
         $semester = $database->getCurrentSemester();
-        $admin_session = $this->extractSession($semester['semester']);
+        $admin_session = $this->extractSession($semester);
         $year = floatval($admin_session) - floatval($student_session);
         $ext_year = substr($year, 0, 1);
         return $ext_year;
