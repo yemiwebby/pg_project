@@ -13,26 +13,30 @@ use PHPMailer\PHPMailer\PHPMailer;
 class Services
 {
 
-    public function sendEmailToSupervisor($email, $message){
+    public function sendEmailToSupervisor($email, $message)
+    {
         $subject = "Confirmation of Candidate Seminar Form ( csepostgraduateseminar@gmail.com )";
         $this->sendEmails($email, $subject, $message);
     }
 
 
-    public function sendEmailToStudent($email, $message) {
+    public function sendEmailToStudent($email, $message)
+    {
         $subject = "Seminar Form Submitted";
         $this->sendEmails($email, $subject, $message);
     }
 
 
-    public function sendEmailToAdmin( $message) {
+    public function sendEmailToAdmin( $message)
+    {
         $email = "csepostgraduateseminar@gmail.com";
         $subject = "Notification of form submission";
         $this->sendEmails($email, $subject, $message);
     }
 
 
-    public function sendEmails($email, $subject, $message) {
+    public function sendEmails($email, $subject, $message)
+    {
 
         $to = $email;
 
@@ -63,5 +67,55 @@ class Services
         } else {
 //            echo "Sent successfully";
         }
+    }
+
+    public function finalSemesterUsingLeaveOfAbsence($student_mat_no, $leave_of_absence)
+    {
+        $calculated_semester = $this->calculateSemester($student_mat_no);
+        $final_semester = floatval($calculated_semester) - floatval($leave_of_absence);
+
+        return $final_semester;
+    }
+
+    function calculateSemester($student_mat_no) {
+//Harmattan is the first semester denoted with H
+//            Rain is the second semester denoted with R
+        $database = new Database();
+        $semester = $database->getCurrentSemester();
+        $admin_semester = $this->extractSemester($semester['semester']);
+        $student_semester = $this->extractSemester($student_mat_no);
+        $year = $this->calculateYear($this->extractSession($student_mat_no));
+        $new_semester = '';
+
+        if ($admin_semester == 'R' && $student_semester == 'R') {
+            $new_semester = $year * 2;
+        }
+        elseif ($admin_semester == 'H' && $student_semester == 'H') {
+            $new_semester = ($year * 2) - 1;
+        } else {
+            $new_semester = ($year * 2) - 1;
+        }
+
+        return $new_semester;
+    }
+
+    function extractSession($string) {
+        $new_mat = substr($string, 3, +5);
+        $no_slash = stripslashes(str_replace('/', '', $new_mat));
+        return $no_slash;
+    }
+
+    function extractSemester($string) {
+        $semester = substr($string, 9, +1);
+        return $semester;
+    }
+
+    function calculateYear($student_session) {
+        $database = new Database();
+        $semester = $database->getCurrentSemester();
+        $admin_session = $this->extractSession($semester['semester']);
+        $year = floatval($admin_session) - floatval($student_session);
+        $ext_year = substr($year, 0, 1);
+        return $ext_year;
     }
 }

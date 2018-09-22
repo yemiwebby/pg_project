@@ -54,6 +54,12 @@ class Database
         return $config;
     }
 
+    public function getCurrentSemester()
+    {
+        $admin_current_semester = $this->link->query("SELECT * FROM configuration ORDER BY ID DESC LIMIT 1");
+        return $admin_current_semester;
+    }
+
 
 //    public function showAllCandidate()
 //    {
