@@ -1,7 +1,25 @@
 <?php include "$_SERVER[DOCUMENT_ROOT]/includes/layout/admin-header.php";?>
-    <main>
 
+    <main>
         <div class="content-wrapper">
+
+            <?php
+
+            if (isset($_POST['config_submit'])) {
+
+
+                $semester = $_POST['current_semester'];
+                $sql = $database->saveConfiguration($semester);
+
+                if (!$sql) {
+                    echo "Error occurred";
+                } else {
+                    echo "Current semester set successfully";
+                }
+            }
+
+            ?>
+
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -21,7 +39,7 @@
                     <h1> Set the current semester </h1>
                 </div>
 
-                <form action="#" method="post" style="background: #ffffff;padding: 25px;">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" style="background: #ffffff;padding: 25px;">
                     <div class="row">
 
                         <div class="col-md-6">
@@ -34,7 +52,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success"> <span class="fa fa-save"></span> Save </button>
+                                    <button type="submit" class="btn btn-success" name="config_submit"> <span class="fa fa-save"></span> Save </button>
                                 </div>
                             </div>
 

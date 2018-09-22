@@ -35,5 +35,12 @@
         $('.dataTables').DataTable({})
     })
 </script>
+
+<script>
+    $('.date').datepicker({
+        autoclose: true,
+        closeOnDateSelect: true
+    });
+</script>
 </body>
 </html>

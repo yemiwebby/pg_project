@@ -19,6 +19,7 @@ require ('connect.php');
 $form_id = '';
 if (isset($_GET['id'])) {
     $form_id = $_GET['id'];
+    $_SESSION['form_id'] = $form_id;
 }
 
 $student_form  = $mysqli->query("SELECT * FROM form WHERE id='$form_id'");
@@ -27,9 +28,36 @@ $form = '';
 if ($student_form->num_rows > 0) {
     $form = $student_form->fetch_assoc();
 }
-
 if (isset($_POST['update_form'])) {
-    echo "Form edited by the supervisor";
+
+
+    $first_name     = $_POST['first_name'];
+    $middle_name     = $_POST['middle_name'];
+    $last_name     = $_POST['last_name'];
+    $registration_number   = $_POST['reg_number'];
+    $loa   = $_POST['leave_absence'];
+    $project_title  = $_POST['project_title'];
+    $phone_no     = $_POST['phone_no'];
+    $seminar_month    = $_POST['seminar_month'];
+    $student_email = $_SESSION['student_email'];
+    $hash = $_SESSION['form_hash'];
+    $id = $_SESSION['form_id'];
+
+    $sql = "UPDATE form SET first_name ='$first_name', middle_name = '$middle_name', last_name = '$last_name',
+    reg_number = '$registration_number', leave_absence = '$loa', project_title = '$project_title', phone_no = '$phone_no',
+    seminar_month = '$seminar_month' WHERE id ='$id'";
+
+
+    if(!mysqli_query($con, $sql)) {
+
+        echo ("Error Description: ".mysqli_error($con));
+
+    } else {
+        $_SESSION['form_edited'] = "Form edited successfully";
+        echo "Form has been edited successfully by the supervisor";
+//        die();
+        header("location:http://".$_SERVER['SERVER_NAME']."/PG_Project_Update/supervisor.php?email=$student_email&hash=$hash");
+    }
 }
 
 ?>
@@ -65,7 +93,7 @@ if (isset($_POST['update_form'])) {
             <div class="form-group">
                 <label>Leave Of Absence: ( No of semester )</label>
                 <select class="form-control" name="leave_absence" required>
-                    <option value="<?php echo $form['first_name'] ?>" selected><?php echo $form['first_name'] ?></option>
+                    <option value="<?php echo $form['leave_absence'] ?>" selected><?php echo $form['leave_absence'] ?></option>
                 </select>
             </div>
 
@@ -76,7 +104,7 @@ if (isset($_POST['update_form'])) {
 
             <div class="form-group">
                 <label>Project Title:</label>
-                <textarea class="form-control" name="project_title" required placeholder="Project Title"><?php echo $form['first_name'] ?></textarea>
+                <textarea class="form-control" name="project_title" required placeholder="Project Title"><?php echo $form['project_title'] ?></textarea>
             </div>
 
             <div class="form-group">
@@ -108,7 +136,7 @@ if (isset($_POST['update_form'])) {
             <div class="form-group">
                 <label>Proposed Seminar Month:</label>
                 <select class="form-control" name="seminar_month" required>
-                    <option value="<?php echo $form['first_name'] ?>" selected><?php echo $form['first_name'] ?></option>
+                    <option value="<?php echo $form['seminar_month'] ?>" selected><?php echo $form['seminar_month'] ?></option>
                     <option value="january">January</option>
                     <option value="february">February</option>
                     <option value="march">March</option>
@@ -127,12 +155,12 @@ if (isset($_POST['update_form'])) {
             <div class="form-group">
                 <label>Supervisor's Name:</label>
                 <select class="form-control" name="supervisor_name" required>
-                    <option value="<?php echo $form['first_name'] ?>" selected><?php echo $form['first_name'] ?></option>
+                    <option value="<?php echo $form['supervisor_name'] ?>" selected><?php echo $form['supervisor_name'] ?></option>
                 </select>
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-success" value="Submit" name="update_form"/>
+                <input type="submit" class="btn btn-success" value="Update Form" name="update_form"/>
             </div>
         </form>
     </div>

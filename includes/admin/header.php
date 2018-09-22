@@ -37,7 +37,7 @@
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Log out</a>
+                                <a href="logout.php" class="btn btn-default btn-flat">Log out</a>
                             </div>
                         </li>
                     </ul>

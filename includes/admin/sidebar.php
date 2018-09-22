@@ -34,6 +34,12 @@
             </li>
 
             <li class="">
+                <a href="scheduled.php">
+                    <i class="fa fa-dashboard"></i> <span> Scheduled Seminar </span>
+                </a>
+            </li>
+
+            <li class="">
                 <a href="configuration.php">
                     <i class="fa fa-dashboard"></i> <span>Configuration</span>
                 </a>

@@ -1,12 +1,13 @@
 
 
 <?php
-//require ('header.php');
-
+session_start();
 require ('connect.php');
 
 if (isset($_GET['hash'])) {
     $form_hash = $_GET['hash'];
+    $_SESSION['student_email'] = $_GET['email'];
+    $_SESSION['form_hash'] = $_GET['hash'];
     $sql = $mysqli->query("SELECT * FROM form WHERE hash='$form_hash'");
 
     $form_id = '';
@@ -14,6 +15,7 @@ if (isset($_GET['hash'])) {
     if ($sql->num_rows > 0) {
         $form = $sql->fetch_assoc();
         $form_id = $form['id'];
+        $_SESSION['form_id'] = $form_id;
 //       echo "Form found";
     } else {
         $_SESSION['form_not_found'] = "Form not valid";
@@ -23,33 +25,28 @@ if (isset($_GET['hash'])) {
 
 $edit_form_link = "http://".$_SERVER['SERVER_NAME']."/PG_Project_Update/edit-form.php?id=$form_id";
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['submit_approval'])) {
 
 
-//    // to store supervisors details on the database
-//    $sql = "INSERT INTO Students (name, email) VALUES ('dr aina',  'abigailomlola1@gmail.com')";
-//    if (mysqli_query($conn, $sql)) {
-//        echo "New record created successfully";
-//    } else {
-//        echo "Error: " . $sql . "<br>" . mysqli_error($mysqli);
-//    }
-//    mysqli_close($mysqli);
+    $proposed_seminar_month = $_POST['proposed_seminar_month'];
+    $approved = $_POST['approved'];
+    $seminar_date = $_POST['seminar_date'];
+    $comments = $_POST['comments'];
+    $id = $_SESSION['form_id'];
+
+    $sql = "UPDATE form SET proposed_seminar_month ='$proposed_seminar_month', approved = '$approved', 
+    seminar_date = '$seminar_date', comments = '$comments' WHERE id ='$id'";
 
 
+    if(!mysqli_query($con, $sql)) {
+
+        echo ("Error Description: ".mysqli_error($con));
+
+    } else {
+        session_destroy();
+        header("location:http://".$_SERVER['SERVER_NAME']."/PG_Project_Update/thanks-sup.php");
+    }
 }
-
-?>
-
-<?php
-/**
- * Created by PhpStorm.
- * User: Abigail
- * Date: 6/5/2018
- * Time: 2:35 PM
- */
-
-session_start();
-require ('connect.php');
 
 ?>
 <!DOCTYPE html>
@@ -72,6 +69,7 @@ require ('connect.php');
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo '/images/admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'; ?>">
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <!--    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
@@ -130,42 +128,42 @@ require ('connect.php');
 
     <div class="container">
         <p> PLEASE FILL IN THE CONFIRMATION FORM BELOW.<span class="fa fa-2x fa-pencil"></span></div></p>
-    <form class="" method="post" enctype="" action="">
+    <form class="" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 
         <div class="form-group">
             <label>Proposed Seminar Month:</label>
-            <select class="form-control">
+            <select class="form-control" name="proposed_seminar_month">
                 <option value="#" selected disabled>Select Month Option</option>
 
-                <option value="month">January</option>
-                <option value="month">February</option>
-                <option value="month">March</option>
-                <option value="month">April</option>
-                <option value="month">May</option>
-                <option value="month">June</option>
-                <option value="month">July</option>
-                <option value="month">August</option>
-                <option value="month">September</option>
-                <option value="month">October</option>
-                <option value="month">November</option>
-                <option value="month">December</option>
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
             </select>
         </div>
 
         <div class="form-group">
             <label>Tick the box for Candidate Approval:&nbsp</label>
-            <input type="radio" class="" name="seminar_type" value="Yes">YES&nbsp&nbsp
-            <input type="radio" class="" name="seminar_type" value="No">NO
+            <input type="radio" class="" name="approved" value="1"> YES&nbsp&nbsp
+            <input type="radio" class="" name="approved" value="0"> NO
         </div>
 
         <div class="form-group">
             <label>Date:</label>
-            <input type="date" class="form-control"  name="date" required placeholder="date">
+            <input type="text" class="form-control"  name="seminar_date" id="seminar_date" required>
         </div>
 
         <div class="form-group">
             <label>Comment on candidate readiness:</label>
-            <textarea class="form-control" name="text" placeholder="Comment"></textarea>
+            <textarea class="form-control" name="comments" placeholder="Comment"></textarea>
         </div>
 
 <!--        <div class="form-group">-->
@@ -175,8 +173,8 @@ require ('connect.php');
 <!--        </div>-->
 
         <div class="form-group">
-            <button type="submit" class="btn btn-success" name="submit">Submit</button>
-            <a href="<?php echo $edit_form_link ?>">
+            <button type="submit" class="btn btn-success" name="submit_approval">Submit</button>
+            <a href="<?php echo $edit_form_link ?>" target="_blank">
             <button type="button" class="btn btn-success">
                 Edit Form
             </button>
@@ -199,6 +197,13 @@ require ('connect.php');
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
 <script src="js/bootstrap.min.js"></script>
+<script src="<?php echo '/images/admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'; ?>"></script>
+<script>
+    $('#seminar_date').datepicker({
+        autoclose: true,
+        closeOnDateSelect: true
+    });
+</script>
 </body>
 </html>
 

@@ -47,6 +47,13 @@ class Database
         return $un_approved;
     }
 
+    public function saveConfiguration($semester)
+    {
+        $config = $this->link->query("INSERT INTO configuration(semester) VALUES ('$semester')");
+
+        return $config;
+    }
+
 
 //    public function showAllCandidate()
 //    {

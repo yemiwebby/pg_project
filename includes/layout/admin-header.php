@@ -1,10 +1,15 @@
 <?php
+if(!isset($_SESSION))
+{
+    session_start();
+}
 include "$_SERVER[DOCUMENT_ROOT]/database/Database.php";
 $database = new Database();
 $user_table = $database->fetchAllStudent();
 $forms_table = $database->fetchAllForms();
 $forms_approved = $database->fetchAllApprovedForms();
 $forms_un_approved = $database->fetchAllUnApprovedForms();
+
 
 $student_rows = mysqli_num_rows($user_table);
 $form_rows = mysqli_num_rows($forms_table);
