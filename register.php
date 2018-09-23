@@ -32,7 +32,6 @@ if(isset($_POST['register'])) {
         }
     }
     else{
-
         // generate student's ID
         $studentId = "OAU".mt_rand(5,10000);
 //        $hash = $mysqli->escape_string( md5( rand(0,1000) ) );

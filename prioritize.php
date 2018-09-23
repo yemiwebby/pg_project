@@ -29,7 +29,7 @@
                         <div class="col-md-offset-8 col-md-4 col-sm-7 col-xs-7 m-b-30">
                             <div class="m-b-30">
                                 <a href="candidates.php">
-                                    <button class="btn btn-primary pull-right"> Manage Candidates </button>
+<!--                                    <button class="btn btn-primary pull-right"> Manage Candidates </button>-->
                                 </a>
                             </div>
                         </div>
@@ -40,30 +40,44 @@
                                     <thead>
                                     <tr role="row">
                                         <th>No</th>
-                                        <th>Profile Image</th>
                                         <th>Email</th>
-                                        <th>Name</th>
-                                        <th>Role</th>
+                                        <th>Registration Number</th>
+                                        <th>Student Id</th>
+                                        <th>Scheduled</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
 
                                     <tbody>
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">1</td>
-                                            <td><img src="http://res.cloudinary.com/realcodeng/image/upload/c_fit,h_100,w_100/dfj4rnxavdmyemn5m7if.png" alt="User profile image"></td>
-                                            <td>em</td>
-                                            <td> Name </td>
-                                            <td>
-
-                                            </td>
-                                            <td>
-                                                <button class="btn btn-success"> <span class="fa fa-edit"></span></button>
-                                                <button class="btn btn-danger">
-                                                    <span class="fa fa-trash"></span>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                    <?php
+                                    if ($prioritized_table->num_rows > 0) {
+                                        while($user = $prioritized_table->fetch_assoc()) {
+                                            $status = '';
+                                            if (($user['scheduled_for_seminar'] == 0) || ($user['scheduled_for_seminar'] == null)) {
+                                                $status = "No";
+                                            } else {
+                                                $status = "Yes";
+                                            }
+                                            echo (
+                                                '<tr role="row" class="odd">'.
+                                                '<td class="sorting_1"></td>'.
+                                                '<td>'.$user['email'].'</td>'.
+                                                '<td>'.$user['reg_number'].'</td>'.
+                                                '<td>'.$user['student_id'].'</td>'.
+                                                '<td>'.$status.'</td>'.
+                                                '<td>
+<form method="post" action="add.php">
+<input type="hidden" name="candidate-number" value="'.$user['reg_number'].'">
+   <button class="btn btn-success" type="submit" name="schedule-candidate"><span class="fa fa-edit"></span>Schedule Now</button>
+</form>
+                                                      
+                                                                                                          
+                                                        </td>'.
+                                                '</tr>'
+                                            );
+                                        }
+                                    }
+                                    ?>
 
                                     </tbody>
                                 </table>

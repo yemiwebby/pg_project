@@ -22,7 +22,7 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">  </h3>
+                        <h3 class="box-title"> All candidates </h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -63,10 +63,15 @@
                                                         '<td>'.$user['reg_number'].'</td>'.
                                                         '<td>'.$user['student_id'].'</td>'.
                                                         '<td>
-<button class="btn btn-success"> 
-<span class="fa fa-edit"></span>
-</button>
-                                              
+<form method="post" action="add.php">
+<input type="hidden" name="candidate-id" value="'.$user['id'].'">
+<input type="hidden" name="candidate-email" value="'.$user['email'].'">
+<input type="hidden" name="candidate-number" value="'.$user['reg_number'].'">
+<input type="hidden" name="candidate-student-id" value="'.$user['student_id'].'">
+   <button class="btn btn-success" type="submit" name="add-candidate"><span class="fa fa-edit"></span>Prioritize</button>
+</form>
+                                                      
+                                                                                                          
                                                         </td>'.
                                                         '</tr>'
                                                     );

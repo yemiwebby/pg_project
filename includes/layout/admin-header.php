@@ -9,6 +9,9 @@ $user_table = $database->fetchAllStudent();
 $forms_table = $database->fetchAllForms();
 $forms_approved = $database->fetchAllApprovedForms();
 $forms_un_approved = $database->fetchAllUnApprovedForms();
+$prioritized_table = $database->fetchAllPrioritizedForms();
+$scheduled_table = $database->fetchAllPrioritizedFormsScheduled();
+$not_scheduled_table = $database->fetchAllPrioritizedFormsNotScheduled();
 
 
 $student_rows = mysqli_num_rows($user_table);

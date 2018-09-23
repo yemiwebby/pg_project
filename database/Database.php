@@ -41,6 +41,24 @@ class Database
         return $approved;
     }
 
+    public function fetchAllPrioritizedForms()
+    {
+        $approved = $this->link->query("SELECT * FROM prioritize");
+        return $approved;
+    }
+
+    public function fetchAllPrioritizedFormsScheduled()
+    {
+        $approved = $this->link->query("SELECT * FROM prioritize WHERE scheduled_for_seminar = 1");
+        return $approved;
+    }
+
+    public function fetchAllPrioritizedFormsNotScheduled()
+    {
+        $approved = $this->link->query("SELECT * FROM prioritize WHERE scheduled_for_seminar = 0");
+        return $approved;
+    }
+
     public function fetchAllUnApprovedForms()
     {
         $un_approved = $this->link->query("SELECT * FROM form WHERE approved is NULL or approved = 0");

@@ -20,7 +20,7 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title"> Scheduled Seminar </h3>
+                        <h3 class="box-title"> Not yet scheduled for Seminar </h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -48,8 +48,8 @@
 
                                         <tbody>
                                         <?php
-                                        if ($scheduled_table->num_rows > 0) {
-                                            while($user = $scheduled_table->fetch_assoc()) {
+                                        if ($not_scheduled_table->num_rows > 0) {
+                                            while($user = $not_scheduled_table->fetch_assoc()) {
                                                 echo (
                                                     '<tr role="row" class="odd">'.
                                                     '<td class="sorting_1"></td>'.
